@@ -1,0 +1,28 @@
+.searchContainer {
+  height: 40px;
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+}
+
+.searchCategories {
+  background-color: rgb(179, 36, 11);
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 5px 0 0 5px;
+  color: aliceblue;
+}
+
+.searchBar {
+  border: none;
+  border-radius: 0 5px 5px 0;
+  width: 100%;
+  padding: 0 15px;
+  font-size: 14px;
+}
+
+.searchBar:focus {
+  outline: 2px solid brown;
+}

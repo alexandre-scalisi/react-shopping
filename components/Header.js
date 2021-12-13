@@ -2,8 +2,10 @@ import { useState } from "react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 
+import classes from "./Header.module.css";
 import Cart from "./Cart/Cart";
 import SearchBar from "./SearchBar";
+import AuthButton from "./UI/Buttons/AuthButton";
 
 const Header = () => {
   const router = useRouter();
@@ -11,17 +13,21 @@ const Header = () => {
 
   return (
     <header>
-      <div>
-        <h1>Next e-commerce</h1>
+      <div className={classes.headerTop}>
+        <NextLink href="/">
+          <a className={classes.title}>Next e-commerce</a>
+        </NextLink>
         <SearchBar />
-        <Cart />
-        <nav>
-          {!loggedIn && <NextLink href={"/login"}>Login</NextLink>}
-          {!loggedIn && (
-            <NextLink href={"/register"}>S&apos;enregistrer</NextLink>
-          )}
-          {loggedIn && <NextLink>Logout</NextLink>}
-        </nav>
+        <div className={classes.rightPart}>
+          <Cart />
+          <nav className={classes.authNav}>
+            {!loggedIn && (
+              <AuthButton href={"/register"}>S&apos;enregistrer</AuthButton>
+            )}
+            {!loggedIn && <AuthButton href="/login">Se connecter</AuthButton>}
+            {loggedIn && <AuthButton href="/logout">Logout</AuthButton>}
+          </nav>
+        </div>
       </div>
       <nav>
         <NextLink href="/all">Tout</NextLink>

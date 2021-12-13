@@ -1,0 +1,27 @@
+.authNav {
+  display: flex;
+}
+
+.headerTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px;
+  background-color: tomato;
+}
+
+.title {
+  font-size: 28px;
+  color: rgb(240, 240, 240);
+  padding: 4px 10px;
+  border-radius: 10px;
+  transition: all 0.8s;
+}
+
+.title:hover {
+  background-color: rgb(250, 164, 149);
+}
+
+.rightPart {
+  display: flex;
+}
