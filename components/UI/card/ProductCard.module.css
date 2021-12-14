@@ -1,0 +1,42 @@
+.cardImageContainer {
+  position: relative;
+}
+
+.cardImage {
+  width: 100%;
+  display: block;
+}
+
+.cardLink {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.cardBody {
+  background-color: tomato;
+  padding: 8px 12px;
+}
+.cardDescription {
+  margin-bottom: 20px;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cardRating {
+  color: rgb(26, 26, 26);
+}
+
+.rating {
+  margin-left: 6px;
+  font-weight: 600;
+}
+
+.cardPrice {
+  font-size: 24px;
+  font-weight: 600;
+}
