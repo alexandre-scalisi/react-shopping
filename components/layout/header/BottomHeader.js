@@ -1,8 +1,11 @@
 import NextLink from "next/link";
+import { useRouter } from "next/router";
 
 import classes from "./BottomHeader.module.css";
 
 const BottomHeader = () => {
+  const router = useRouter();
+
   return (
     <nav className={classes.bottomHeader}>
       <NextLink href="/all">
