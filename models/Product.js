@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-
 const Schema = mongoose.Schema;
 const ProductSchema = new Schema(
   {
@@ -20,7 +19,7 @@ const ProductSchema = new Schema(
       type: String,
       required: "Le champs description est requis",
       minlength: 8,
-      maxlength: 500,
+      maxlength: 9999,
     },
     countInStock: {
       type: Number,
@@ -33,7 +32,7 @@ const ProductSchema = new Schema(
       type: String,
       required: "Le champs image est requis",
       minlength: 1,
-      maxlength: 200,
+      maxlength: 1000,
     },
     price: {
       type: Number,
@@ -61,4 +60,5 @@ const ProductSchema = new Schema(
   }
 );
 
-export default mongoose.model("Product", ProductSchema);
+export default mongoose.models.Product ||
+  mongoose.model("Product", ProductSchema);
