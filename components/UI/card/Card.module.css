@@ -1,0 +1,9 @@
+.card {
+  border-radius: 8px;
+  border: 1px solid black;
+  overflow: hidden;
+}
+
+.cardSmall {
+  width: 300px;
+}
