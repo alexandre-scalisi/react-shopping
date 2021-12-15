@@ -9,6 +9,7 @@ export default async function () {
       path: "categories",
     });
     db.disconnect();
+
     return products;
   } catch (err) {
     console.log(err);

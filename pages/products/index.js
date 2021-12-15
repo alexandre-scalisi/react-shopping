@@ -1,47 +1,46 @@
-import ReactPaginate from "react-paginate";
-import Router, { withRouter } from "next/router";
-
-import CardContainer from "../../components/UI/card/CardContainer";
-import ProductCard from "../../components/UI/card/ProductCard";
 import getAllProducts from "../../utils/queries/get-all-products";
+import PaginatedProducts from "../../components/Products/PaginatedProducts";
 
 const AllProducts = (props) => {
-  const pagginationHandler = (page) => {
-    const currentPath = props.router.pathname;
-    const currentQuery = props.router.query;
-    currentQuery.page = page.selected + 1;
-
-    props.router.push({
-      pathname: currentPath,
-      query: currentQuery,
-    });
-  };
-
-  const products = JSON.parse(props.products);
-  const productCards = products.map((product) => {
-    return (
-      <ProductCard
-        name={product.name}
-        description={product.shortDescription}
-        price={product.price}
-        numReviews={product.numReviews}
-        image={product.image}
-        rating={product.rating}
-        key={product._id}
-      />
-    );
-  });
-
-  return <CardContainer>{productCards}</CardContainer>;
+  return (
+    <PaginatedProducts
+      productsPerPage={props.productsPerPage}
+      products={props.products}
+      productOffset={props.productOffset}
+      currentProducts={props.currentProducts}
+      pageCount={props.pageCount}
+    />
+  );
 };
 
-export async function getStaticProps(context) {
-  console.log(context);
+export async function getStaticProps() {
   const products = await getAllProducts();
-  const propsProducts = JSON.stringify(products.slice(0, 30));
+
+  const transformedProducts = products.map((product) => ({
+    name: product.name,
+    shortDescription: product.shortDescription,
+    price: product.price,
+    numReviews: product.numReviews,
+    image: product.image,
+    rating: product.rating,
+    id: product._id.toString(),
+  }));
+
+  const productOffset = 0;
+  const productsPerPage = 40;
+
+  const endOffset = productOffset + productsPerPage;
+  const currentProducts = transformedProducts.slice(productOffset, endOffset);
+  const pageCount = Math.ceil(products.length / productsPerPage);
+
   return {
     props: {
-      products: propsProducts,
+      products: transformedProducts,
+      productOffset,
+      productsPerPage,
+      pageCount,
+      currentProducts,
+      pageCount,
     },
   };
 }
