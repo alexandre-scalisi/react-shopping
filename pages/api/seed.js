@@ -14,29 +14,6 @@ const fetchData = async () => {
   if (!response.ok) throw new Error();
 
   return await response.json();
-
-  // if (!data) return [];
-
-  // const products = [];
-  // const categories = [];
-
-  // data.products.forEach((obj) => {
-  //   products.push({
-  //     name: obj.name,
-  //     shortDescription: obj.shortDescription,
-  //     description: obj.description,
-  //     countInStock: obj.countInStock,
-  //     categories: obj.categories.split(">"),
-  //     image: obj.image,
-  //     price: obj.price,
-  //     numReviews: obj.numReviews,
-  //     rating: obj.rating,
-  //   });
-
-  //   categories;
-  // });
-
-  // return transformedData;
 };
 
 const seedCategories = async (data) => {
@@ -63,6 +40,7 @@ const seedProducts = async (data) => {
         { name: { $in: categories } },
         { _id: 1 }
       );
+      const [image] = obj.image.split(",");
 
       return {
         name: obj.name,
@@ -70,15 +48,13 @@ const seedProducts = async (data) => {
         description: obj.description,
         countInStock: obj.countInStock,
         categories: categoryIds,
-        image: obj.image,
+        image: image,
         price: obj.price,
         numReviews: obj.numReviews,
         rating: obj.rating,
       };
     })
   );
-
-  // console.log(products);
 
   return products;
 };
@@ -99,11 +75,6 @@ export default async function handler(req, res) {
     await Product.deleteMany({});
     await Product.insertMany(products);
 
-    // console.log(products);
-
-    // await Product.insertMany(products);
-
-    // return res.status(201).json({ message: "success", data: products });
     return res.status(201).json({ message: "success", data: products });
   } catch (err) {
     return res.status(404).json({ message: err.message });
