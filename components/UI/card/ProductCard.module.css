@@ -2,6 +2,13 @@
   position: relative;
 }
 
+.cardName {
+  display: inline-block;
+  font-weight: 700;
+  margin-bottom: 6px;
+  font-size: 16px;
+}
+
 .cardImage {
   width: 100%;
   display: block;
@@ -16,6 +23,7 @@
 .cardBody {
   background-color: tomato;
   padding: 8px 12px;
+  height: 100%;
 }
 .cardDescription {
   margin-bottom: 20px;

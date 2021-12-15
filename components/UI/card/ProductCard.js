@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar, faStarHalf } from "@fortawesome/free-solid-svg-icons";
+import { faStar as faEmptyStar } from "@fortawesome/free-regular-svg-icons";
 
 import NextLink from "next/link";
 
@@ -7,30 +8,35 @@ import Card from "./Card";
 import classes from "./ProductCard.module.css";
 
 const ProductCard = (props) => {
+  const cards = [1, 2, 3, 4, 5].map((currRating) => {
+    if (currRating - props.rating > 0 && currRating - props.rating <= 0.5) {
+      return <FontAwesomeIcon icon={faStarHalf} key={currRating} />;
+    }
+    if (props.rating >= currRating) {
+      return <FontAwesomeIcon icon={faStar} key={currRating} />;
+    }
+    return <FontAwesomeIcon icon={faEmptyStar} key={currRating} />;
+  });
+
   return (
     <Card productCard={true}>
       <div className={classes.cardImageContainer}>
         <NextLink href="/product/1">
           <a className={classes.cardLink}></a>
         </NextLink>
-        <img
-          className={classes.cardImage}
-          src="https://img-19.ccm2.net/WNCe54PoGxObY8PCXUxMGQ0Gwss=/480x270/smart/d8c10e7fd21a485c909a5b4c5d99e611/ccmcms-commentcamarche/20456790.jpg"
-          alt="product"
-        />
+        <img className={classes.cardImage} src={props.image} alt={props.name} />
       </div>
 
       <div className={classes.cardBody}>
+        <NextLink href="/product/1">
+          <a className={classes.cardName}>{props.name}</a>
+        </NextLink>
         <p className={classes.cardDescription}>{props.description}</p>
         <div className={classes.cardFooter}>
           <div className={classes.cardPrice}>{props.price.toFixed(2)}€</div>
           <div className={classes.cardRating}>
-            <FontAwesomeIcon icon={faStar} />
-            <FontAwesomeIcon icon={faStar} />
-            <FontAwesomeIcon icon={faStar} />
-            <FontAwesomeIcon icon={faStar} />
-            <FontAwesomeIcon icon={faStar} />
-            <span className={classes.rating}>10</span>
+            {cards}
+            <span className={classes.rating}>{props.numReview}</span>
           </div>
         </div>
       </div>
