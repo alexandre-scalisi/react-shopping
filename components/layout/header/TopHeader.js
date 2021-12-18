@@ -2,7 +2,7 @@ import { useState } from "react";
 import NextLink from "next/link";
 
 import SearchBar from "../../UI/SearchBar";
-import AuthButton from "../../UI/Buttons/AuthButton";
+import LinkButton from "../../UI/Buttons/LinkButton";
 import Cart from "../../Cart/Cart";
 import classes from "./TopHeader.module.css";
 
@@ -19,10 +19,10 @@ const TopHeader = () => {
         <Cart />
         <nav className={classes.authNav}>
           {!loggedIn && (
-            <AuthButton href={"/register"}>S&apos;enregistrer</AuthButton>
+            <LinkButton href={"/register"}>S&apos;enregistrer</LinkButton>
           )}
-          {!loggedIn && <AuthButton href="/login">Se connecter</AuthButton>}
-          {loggedIn && <AuthButton href="/logout">Logout</AuthButton>}
+          {!loggedIn && <LinkButton href="/login">Se connecter</LinkButton>}
+          {loggedIn && <LinkButton href="/logout">Logout</LinkButton>}
         </nav>
       </div>
     </div>

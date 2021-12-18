@@ -12,6 +12,7 @@ const Products = (props) => {
         image={product.image}
         rating={product.rating}
         key={product.id}
+        id={product.id}
       />
     );
   });

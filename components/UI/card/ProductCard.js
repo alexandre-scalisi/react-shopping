@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faStarHalf } from "@fortawesome/free-solid-svg-icons";
 import { faStar as faEmptyStar } from "@fortawesome/free-regular-svg-icons";
-
+import Image from "next/image";
 import NextLink from "next/link";
 
 import Card from "./Card";
@@ -21,10 +21,17 @@ const ProductCard = (props) => {
   return (
     <Card productCard={true}>
       <div className={classes.cardImageContainer}>
-        <NextLink href="/product/1">
+        <NextLink href={`products/${props.id}`}>
           <a className={classes.cardLink}></a>
         </NextLink>
-        <img className={classes.cardImage} src={props.image} alt={props.name} />
+        <Image
+          className={classes.cardImage}
+          width={300}
+          height={300}
+          layout="responsive"
+          src={props.image}
+          alt={props.name}
+        />
       </div>
 
       <div className={classes.cardBody}>
