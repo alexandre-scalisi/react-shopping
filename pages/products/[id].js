@@ -1,23 +1,26 @@
 import ProductItem from "../../components/Products/ProductItem";
-import getAllProducts from "../../utils/queries/get-all-products";
+import getAllProductIds from "../../utils/queries/get-all-product-ids";
 import getProduct from "../../utils/queries/get-product";
 
 const Product = (props) => {
   return <ProductItem product={props.product} id={props.id} />;
 };
 export async function getStaticPaths() {
-  const products = await getAllProducts();
+  const productIds = await getAllProductIds();
 
-  const ids = products.map((product) => ({ params: { id: product.id } }));
+  const paths = productIds.map((product) => ({
+    params: { id: product._id.toString() },
+  }));
 
   return {
-    paths: ids,
-    fallback: true,
+    paths,
+    fallback: false,
   };
 }
 
 export async function getStaticProps(context) {
   const id = context.params.id;
+
   const product = await getProduct(id);
 
   return {

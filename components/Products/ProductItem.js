@@ -4,7 +4,7 @@ import LinkButton from "../UI/Buttons/LinkButton";
 import Order from "./Order";
 
 const ProductItem = (props) => {
-  const categoriesContent = props.product.categories.map((category, i) => (
+  const categoriesContent = props.product.categories.map((category) => (
     <LinkButton href="#" key={category._id} className={classes.productCategory}>
       {category.name}
     </LinkButton>

@@ -16,26 +16,15 @@ const AllProducts = (props) => {
 export async function getStaticProps() {
   const products = await getAllProducts();
 
-  const transformedProducts = products.map((product) => ({
-    name: product.name,
-    shortDescription: product.shortDescription,
-    price: product.price,
-    numReviews: product.numReviews,
-    image: product.image,
-    rating: product.rating,
-    id: product._id.toString(),
-  }));
-
   const productOffset = 0;
   const productsPerPage = 40;
 
   const endOffset = productOffset + productsPerPage;
-  const currentProducts = transformedProducts.slice(productOffset, endOffset);
+  const currentProducts = products.slice(productOffset, endOffset);
   const pageCount = Math.ceil(products.length / productsPerPage);
-
   return {
     props: {
-      products: transformedProducts,
+      products: products,
       productOffset,
       productsPerPage,
       pageCount,

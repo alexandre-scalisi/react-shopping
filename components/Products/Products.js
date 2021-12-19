@@ -11,8 +11,8 @@ const Products = (props) => {
         numReviews={product.numReviews}
         image={product.image}
         rating={product.rating}
-        key={product.id}
-        id={product.id}
+        key={product._id}
+        id={product._id}
       />
     );
   });

@@ -1,0 +1,22 @@
+.input {
+  margin-bottom: 12px;
+}
+
+.input label {
+  display: none;
+}
+
+.input input {
+  display: block;
+  width: 100%;
+  font-size: 14px;
+  border-radius: 6px;
+  padding: 5px;
+  font-weight: 700;
+  border: none;
+}
+
+.input input:focus {
+  border: 1px solid white;
+  outline: 1px solid white;
+}

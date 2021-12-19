@@ -1,0 +1,12 @@
+.register {
+  padding: 40px 80px;
+  background-color: rgb(252, 252, 252);
+  background-color: rgb(179, 36, 11);
+  width: 800px;
+}
+
+.title {
+  margin-bottom: 20px;
+  color: tomato;
+  font-size: 26px;
+}

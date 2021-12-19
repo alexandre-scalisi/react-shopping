@@ -75,6 +75,8 @@ export default async function handler(req, res) {
     await Product.deleteMany({});
     await Product.insertMany(products);
 
+    await db.disconnect();
+
     return res.status(201).json({ message: "success", data: products });
   } catch (err) {
     return res.status(404).json({ message: err.message });

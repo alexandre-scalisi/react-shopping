@@ -8,6 +8,7 @@ export default async function (id) {
     const product = await Product.findOne({ _id: id }).populate({
       path: "categories",
     });
+
     await db.disconnect();
 
     const transformedCategories = product.categories.map((cat) => ({

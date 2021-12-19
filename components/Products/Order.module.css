@@ -1,0 +1,14 @@
+.button {
+  background-color: tomato;
+  display: block;
+  text-align: center;
+  border-radius: 100px;
+  padding: 12px 10px;
+  margin-top: 20px;
+}
+
+.select {
+  border: none;
+  margin-left: 10px;
+  margin-top: 10px;
+}

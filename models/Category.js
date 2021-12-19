@@ -10,5 +10,7 @@ const CategorySchema = new Schema({
     maxLength: 150,
   },
 });
-export default mongoose.models.Category ||
-  mongoose.model("Category", CategorySchema);
+const Category =
+  mongoose.models.Category || mongoose.model("Category", CategorySchema);
+
+export default Category;

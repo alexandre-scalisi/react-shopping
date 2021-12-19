@@ -2,10 +2,5 @@
   border-radius: 8px;
   border: 1px solid black;
   overflow: hidden;
-  margin-bottom: 30px;
-  margin-right: 10px;
-}
-
-.cardSmall {
-  width: 320px;
+  display: inline-block;
 }
