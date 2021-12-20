@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import Input from "../UI/inputs/Input";
 import classes from "./RegisterForm.module.css";
@@ -7,92 +7,35 @@ const RegisterForm = () => {
   const emailInput = useRef();
   const passwordInput = useRef();
   const passwordConfirmInput = useRef();
-  let formErrors = {};
 
-  const validateLength = (str, inputName, minLength = 0, maxLength = 20) => {
-    const errors = {};
-    const trimmedStr = str.trim();
+  const [inputErrors, setInputErrors] = useState({});
 
-    if (trimmedStr.length < minLength) {
-      errors.minLength = `Le champs ${inputName} doit contenir au moins ${minLength} caractères`;
-    }
-    if (trimmedStr.length > maxLength) {
-      errors.minLength = `Le champs ${inputName} doit contenir moins de ${maxLength} caractères`;
-    }
-    return errors;
-  };
-
-  const emailValidator = async () => {
-    let errors = {};
-    errors = {
-      ...errors,
-      ...validateLength(emailInput.current.value, "Email", 5, 60),
-    };
-
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    setInputErrors({});
     try {
-      const data = await fetch("api/users/emails/" + emailInput.current.value);
-      const { data: user } = await data.json();
-      if (user.length > 0) {
-        errors.unique = "Cet email est déjà utilisé";
+      const response = await fetch("api/users/create", {
+        method: "POST",
+        body: JSON.stringify({
+          email: emailInput.current.value,
+          password: passwordInput.current.value,
+          passwordConfirm: passwordConfirmInput.current.value,
+        }),
+      });
+      const data = await response.json();
+
+      if (data.message.errors) {
+        const errors = {};
+
+        Object.entries(data.message.errors).forEach(([key, value]) => {
+          errors[key] = value.properties.message;
+        });
+
+        setInputErrors(errors);
       }
     } catch (err) {
       console.log(err);
     }
-
-    if (Object.keys(errors).length > 0) {
-      formErrors.emailInput = errors;
-    }
-  };
-
-  const passwordValidator = () => {
-    let errors = {};
-
-    const lengthErrors = validateLength(
-      passwordInput.current.value,
-      "Mot de passe",
-      10,
-      40
-    );
-
-    if (lengthErrors) {
-      errors = {
-        ...errors,
-        ...lengthErrors,
-      };
-    }
-
-    if (Object.keys(errors).length > 0) {
-      formErrors.passwordInput = errors;
-    }
-  };
-
-  const passwordConfirmValidator = () => {
-    if (
-      passwordInput.current.value.trim() !==
-      passwordConfirmInput.current.value.trim()
-    ) {
-      formErrors.passwordConfirmInput = "Veuillez confirmer votre mot de passe";
-    }
-  };
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    formErrors = {};
-    await emailValidator();
-    await passwordValidator();
-    await passwordConfirmValidator();
-
-    if (Object.keys(formErrors).length > 0) {
-      console.log(formErrors);
-      return;
-    }
-
-    fetch("api/users/create", {
-      method: "POST",
-      body: JSON.stringify({
-        email: emailInput.current.value.trim(),
-        password: passwordInput.current.value.trim(),
-      }),
-    });
   };
 
   return (
@@ -100,7 +43,12 @@ const RegisterForm = () => {
       <Input
         ref={emailInput}
         label="Email"
-        input={{ type: "email", placeholder: "Email", id: "email" }}
+        input={{
+          type: "email",
+          placeholder: "Email",
+          id: "email",
+        }}
+        inputErrors={inputErrors}
       />
       <Input
         ref={passwordInput}
@@ -110,6 +58,7 @@ const RegisterForm = () => {
           placeholder: "Mot de passe",
           id: "password",
         }}
+        inputErrors={inputErrors}
       />
       <Input
         ref={passwordConfirmInput}
@@ -119,6 +68,7 @@ const RegisterForm = () => {
           placeholder: "Confirmer le mot de passe",
           id: "passwordConfirm",
         }}
+        inputErrors={inputErrors}
       />
       <div className={classes.buttonContainer}>
         <button className={classes.submit}>Créer un compte</button>

@@ -1,9 +1,17 @@
 .input {
-  margin-bottom: 12px;
+  margin-bottom: 36px;
+  position: relative;
 }
 
 .input label {
-  display: none;
+  position: absolute;
+  display: inline-block;
+  visibility: hidden;
+  color: tomato;
+  font-weight: 600;
+  left: 5px;
+  top: 3px;
+  transition: display 0.2s, top 0.8s, left 0.8s;
 }
 
 .input input {
@@ -19,4 +27,15 @@
 .input input:focus {
   border: 1px solid white;
   outline: 1px solid white;
+}
+
+.input input:not(:placeholder-shown) + label {
+  visibility: visible;
+  top: -25px;
+  left: 0;
+}
+
+.error {
+  margin-top: 5px;
+  color: rgb(255, 209, 81);
 }

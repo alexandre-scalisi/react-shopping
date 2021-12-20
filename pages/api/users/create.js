@@ -11,13 +11,14 @@ export default async function handler(req, res) {
       const body = JSON.parse(req.body);
       const email = sanitize(body.email);
       const password = sanitize(body.password);
+      const passwordConfirm = sanitize(body.passwordConfirm);
 
-      await User.create({ email, password: bcrypt.hashSync(password) });
+      await User.create({ email, password, passwordConfirm });
 
       await db.disconnect();
       return res.status(200).json({ message: "success" });
     } catch (err) {
-      return res.status(404).json({ message: err.message });
+      return res.status(404).json({ message: err });
     }
   } else {
     return res.status(404).json({ message: "page not foundo" });
