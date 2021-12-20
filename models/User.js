@@ -29,8 +29,12 @@ const UserSchema = new Schema(
     },
     isAdmin: {
       type: Boolean,
-      required: "Le champ is admin est requis",
+      required: "Le champ isAdmin est requis",
       default: false,
+    },
+    password: {
+      type: String,
+      required: true,
     },
   },
   {
